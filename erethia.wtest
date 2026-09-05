@@ -1,3 +1,46 @@
 import rolando.*
+import artefactosMagicos.*
+
 describe "Erethia" {
+    test "Rolando encuentra un artefacto" {
+        assert.equals( 0, rolando.mochila().size() )
+        rolando.encontrar(espadaDelDestino)
+        rolando.encontrar(libroDeHechizos)
+        assert.equals( 2, rolando.mochila().size() )
+        assert.equals( [ espadaDelDestino, libroDeHechizos ], rolando.mochila() )
+        // assert.that(rolando.mochila().contains(espadaDelDestino))
+        // assert.that(rolando.mochila().contains(libroDeHechizos))
+        rolando.encontrar(collarDivino)
+        assert.notThat( rolando.mochila().contains(collarDivino) )
+    }
+
+    test "Rolando y el castillo de piedra" {
+        rolando.encontrar(espadaDelDestino)
+        rolando.encontrar(libroDeHechizos)
+        rolando.llegarACasa()
+        assert.equals( [ espadaDelDestino, libroDeHechizos ], castilloDePiedra.inventario() )
+        rolando.encontrar(collarDivino)
+        rolando.llegarACasa()
+        assert.equals( [ espadaDelDestino, libroDeHechizos, collarDivino ], castilloDePiedra.inventario() )
+    }
+
+    test "Saber posesiones" {
+        rolando.encontrar(espadaDelDestino)
+        rolando.encontrar(collarDivino)
+        rolando.llegarACasa()
+        rolando.encontrar(armaduraDeAceroValyrio)
+        assert.equals( 3, rolando.posesiones().size() )
+        assert.notThat( rolando.posesiones().contains(libroDeHechizos) )
+    }
+
+    test "Historial de encuentros" {
+        rolando.encontrar(espadaDelDestino)
+        rolando.encontrar(libroDeHechizos)
+        rolando.encontrar(collarDivino)
+        rolando.llegarACasa()
+        rolando.encontrar(armaduraDeAceroValyrio)
+        rolando.encontrar(collarDivino)
+        assert.equals( [ espadaDelDestino, libroDeHechizos, collarDivino, armaduraDeAceroValyrio, collarDivino ], rolando.historialArtefactos() )
+		assert.equals(5, rolando.historialArtefactos().size())
+    }
 }
