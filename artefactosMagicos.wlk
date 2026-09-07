@@ -2,42 +2,51 @@ import rolando.*
 
 // ARTEFACTOS MAGICOS
 object espadaDelDestino {
+    var esPrimeraBatalla = true
+
     method poderQueAportaPara(personaje) {
         return
-        if ( self.esPrimeraBatalla() ) {
-            personaje.poderBase()
-        } else {
-            personaje.poderBase() / 2
-        } 
+            if ( not self.esPrimeraBatalla() ) {
+                personaje.poderBase() / 2
+            } else {
+                personaje.poderBase()
+            } 
     }
 
-    method esPrimeraBatalla() = true
+    method esPrimeraBatalla() = esPrimeraBatalla
+
+    method serUsado() {
+      
+    }
 }
 
 object libroDeHechizos {
     method poderQueAportaPara(personaje)  {
         return
     }
+
+    method serUsado() {
+      
+    }
 }
 
 object collarDivino {
-    method poderQueAportaPara(personaje)  {
-        var cantidadDeUsos = 0 // contador
+    var usos = 0 //contador
 
+    method poderQueAportaPara(personaje)  {
         return
-        if (personaje.poderBase() > 6) {
-            3 + personaje.cantidadBatallas()
-        } else { 
-            3
-        }
+            if (personaje.poderBase() > 6) {
+                3 + usos
+            } else { 
+                3
+            }
     }
-    /* Collar divino: aporta 3 puntos, pero si el personaje tiene un poder base mayor a 6,
-    le suma también un punto por cada batalla en la que se haya usado el collar.*/
     
+    method serUsado() {
+        usos += 1
+    }
 }
 
 object armaduraDeAceroValyrio {
-    method poderQueAportaPara(personaje)  {
-        return 6
-    }  
+    method poderQueAportaPara(personaje) = 6
 }

@@ -8,8 +8,8 @@ describe "Erethia" {
         rolando.encontrar(libroDeHechizos)
         assert.equals( 2, rolando.mochila().size() )
         //assert.equals( [ espadaDelDestino, libroDeHechizos ], rolando.mochila() )
-        assert.that(rolando.mochila().contains(espadaDelDestino))
-        assert.that(rolando.mochila().contains(libroDeHechizos))
+        assert.that( rolando.mochila().contains(espadaDelDestino) )
+        assert.that( rolando.mochila().contains(libroDeHechizos) )
         rolando.encontrar(collarDivino)
         assert.notThat( rolando.mochila().contains(collarDivino) )
     }
@@ -19,14 +19,14 @@ describe "Erethia" {
         rolando.encontrar(libroDeHechizos)
         rolando.llegarACasa()
         //assert.equals( [ espadaDelDestino, libroDeHechizos ], castilloDePiedra.inventario() )
-        assert.that(castilloDePiedra.inventario().contains(espadaDelDestino))
-        assert.that(castilloDePiedra.inventario().contains(libroDeHechizos))
+        assert.that( castilloDePiedra.inventario().contains(espadaDelDestino) )
+        assert.that( castilloDePiedra.inventario().contains(libroDeHechizos) )
         rolando.encontrar(collarDivino)
         rolando.llegarACasa()
         //assert.equals( [ espadaDelDestino, libroDeHechizos, collarDivino ], castilloDePiedra.inventario() )
-        assert.that(castilloDePiedra.inventario().contains(espadaDelDestino))
-        assert.that(castilloDePiedra.inventario().contains(libroDeHechizos))
-        assert.that(castilloDePiedra.inventario().contains(collarDivino))
+        assert.that( castilloDePiedra.inventario().contains(espadaDelDestino) )
+        assert.that( castilloDePiedra.inventario().contains(libroDeHechizos) )
+        assert.that( castilloDePiedra.inventario().contains(collarDivino) )
     }
 
     test "Saber posesiones" {
@@ -46,18 +46,18 @@ describe "Erethia" {
         rolando.encontrar(armaduraDeAceroValyrio)
         rolando.encontrar(collarDivino)
         assert.equals( [ espadaDelDestino, libroDeHechizos, collarDivino, armaduraDeAceroValyrio, collarDivino ], rolando.historialArtefactos() )
-		assert.equals(5, rolando.historialArtefactos().size())
+		assert.equals( 5, rolando.historialArtefactos().size() )
     }
 
     test "Artefactos, poder de pelea y batalla" {
         rolando.poderBase(5)
         rolando.capacidadMáximaMochila(3)
         rolando.encontrar(espadaDelDestino)
-        assert.equals(5, espadaDelDestino.poderQueAportaPara(rolando) )
+        assert.equals( 5, espadaDelDestino.poderQueAportaPara(rolando) )
         rolando.encontrar(armaduraDeAceroValyrio)
-        assert.equals(6, armaduraDeAceroValyrio.poderQueAportaPara(rolando) )
+        assert.equals( 6, armaduraDeAceroValyrio.poderQueAportaPara(rolando) )
         rolando.encontrar(collarDivino)
-        assert.equals(3, collarDivino.poderQueAportaPara(rolando) )
+        assert.equals( 3, collarDivino.poderQueAportaPara(rolando) )
 
         rolando.pelearBatalla()
         assert.equals( 3, espadaDelDestino.poderQueAportaPara(rolando) )
@@ -75,4 +75,6 @@ describe "Erethia" {
         assert.equals( 6, armaduraDeAceroValyrio.poderQueAportaPara(rolando) )
         assert.equals( 6, collarDivino.poderQueAportaPara(rolando) )
     }
+
+    
 }

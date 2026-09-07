@@ -36,16 +36,19 @@ object rolando {
     // parte 2.1
     method poderDePelea() {
         return poderBase + self.poderTotalArtefactos()
-        /* + sumatoria de los poderes de pelea de los artefactos de la mochila */
     }
 
     method poderTotalArtefactos() {
-        return mochila.sum( {artefacto => artefacto.poderQueAportaPara(self)} )
+      return mochila.sum( {artefacto => artefacto.poderQueAportaPara(self)} )
     }
 
     method pelearBatalla() {
       // Cuando ocurre una batalla, se utilizan todos los artefactos que rolando lleva consigo, y además se incrementa en 1 el número base del poder de pelea de rolando.
+        
+    }
 
+    method usar(artefacto) {
+        return artefacto.serUsado()
     }
 }
 
