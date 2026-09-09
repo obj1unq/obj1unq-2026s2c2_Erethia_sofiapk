@@ -1,4 +1,6 @@
 import artefactosMagicos.*
+import enemigos.*
+
 object rolando {
     const mochila = []
     const historialArtefactos = []
@@ -10,6 +12,7 @@ object rolando {
 
     method mochila() = mochila
     method historialArtefactos() = historialArtefactos
+    method casa() = casa
 
     method encontrar(artefacto) {
         historialArtefactos.add(artefacto)
@@ -39,16 +42,31 @@ object rolando {
     }
 
     method poderTotalArtefactos() {
-      return mochila.sum( {artefacto => artefacto.poderQueAportaPara(self)} )
+        return mochila.sum( {artefacto => artefacto.poderQueAportaPara(self)} )
+    }
+
+    // el artefacto que me de mas poder
+    method poderInvocado() {
+        return casa.inventario().max( { artefacto => artefacto.poderQueAportaPara(self) })
     }
 
     method pelearBatalla() {
-      // Cuando ocurre una batalla, se utilizan todos los artefactos que rolando lleva consigo, y además se incrementa en 1 el número base del poder de pelea de rolando.
-        
+        self.usarArtefactosDeMochila()
+        poderBase += 1
     }
 
-    method usar(artefacto) {
-        return artefacto.serUsado()
+    method usarArtefactosDeMochila() {
+        return mochila.forEach( {artefacto => artefacto.serUsado()} )
+    }
+
+    method puedeVencer(enemigo) {
+        // Los enemigos en Erethia que Rolando puede vencer son aquellos que tienen un poder de batalla menor al suyo.
+        // enemigo.poderDePelea() < self.poderDePelea()
+    }
+
+    //A su vez, las moradas que Rolando podría conquistar son las moradas de los enemigos a los cuales puede vencer.
+    method puedeConquistarCasaDelEnemigo(enemigo) {
+        
     }
 }
 

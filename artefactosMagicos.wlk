@@ -1,4 +1,5 @@
 import rolando.*
+import enemigos.*
 
 // ARTEFACTOS MAGICOS
 object espadaDelDestino {
@@ -16,17 +17,7 @@ object espadaDelDestino {
     method esPrimeraBatalla() = esPrimeraBatalla
 
     method serUsado() {
-      
-    }
-}
-
-object libroDeHechizos {
-    method poderQueAportaPara(personaje)  {
-        return
-    }
-
-    method serUsado() {
-      
+        esPrimeraBatalla = false
     }
 }
 
@@ -49,4 +40,42 @@ object collarDivino {
 
 object armaduraDeAceroValyrio {
     method poderQueAportaPara(personaje) = 6
+
+    method serUsado() {} // esta bien que esté vacío
+}
+
+object libroDeHechizos {
+    const hechizos = [bendición, invisibilidad, invocación] // bendicion, invisibilidad invocación o vacia
+
+    method hechizos() = hechizos
+
+    method poderQueAportaPara(personaje)  {
+        return
+            if ( ! hechizos.isEmpty() ){
+                hechizos.get(0).poderQueAportaPara(personaje)
+            } else {
+                0 // Si el libro de hechizos no tiene ningún hechizo, entonces su aporte es nulo.
+            }
+    }
+
+    method serUsado() { // no lleva return porque es una orden !!
+        if ( ! hechizos.isEmpty() ){
+            hechizos.remove(hechizos.get(0))
+        }       
+    }
+}
+
+object bendición {
+    method poderQueAportaPara(personaje) = 4
+}
+
+object invocación {
+    method poderQueAportaPara(personaje){
+        // return personaje.casa().inventario().max( { artefacto => artefacto.poderQueAportaPara(personaje) }).poderQueAportaPara(personaje) // mal - robo responsabilidad
+        return personaje.poderInvocado().poderQueAportaPara(personaje)
+    }
+}
+
+object invisibilidad {
+    method poderQueAportaPara(personaje) = personaje.poderBase()
 }

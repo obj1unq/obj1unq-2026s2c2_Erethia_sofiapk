@@ -1,5 +1,7 @@
 import rolando.*
 import artefactosMagicos.*
+import enemigos.*
+
 
 describe "Erethia" {
     test "Rolando encuentra un artefacto" {
@@ -59,22 +61,81 @@ describe "Erethia" {
         rolando.encontrar(collarDivino)
         assert.equals( 3, collarDivino.poderQueAportaPara(rolando) )
 
+        // Primera batalla
         rolando.pelearBatalla()
+        assert.equals( 6, rolando.poderBase() )
         assert.equals( 3, espadaDelDestino.poderQueAportaPara(rolando) )
         assert.equals( 6, armaduraDeAceroValyrio.poderQueAportaPara(rolando) )
         assert.equals( 3, collarDivino.poderQueAportaPara(rolando) )
+        assert.equals( 18, rolando.poderDePelea() )
         
+        // Segunda batalla
         rolando.pelearBatalla()
         assert.equals( 7, rolando.poderBase() )
         assert.equals( 3.5, espadaDelDestino.poderQueAportaPara(rolando) )
         assert.equals( 6, armaduraDeAceroValyrio.poderQueAportaPara(rolando) )
         assert.equals( 5, collarDivino.poderQueAportaPara(rolando) )
+        assert.equals( 21.5, rolando.poderDePelea() )
 
+        // Tercera batalla
+        rolando.pelearBatalla()
         assert.equals( 8, rolando.poderBase())
         assert.equals( 4, espadaDelDestino.poderQueAportaPara(rolando) )
         assert.equals( 6, armaduraDeAceroValyrio.poderQueAportaPara(rolando) )
         assert.equals( 6, collarDivino.poderQueAportaPara(rolando) )
+        assert.equals( 24, rolando.poderDePelea() )
     }
 
-    
+    test "Libro de hechizos" {
+        rolando.encontrar(armaduraDeAceroValyrio)
+        rolando.encontrar(espadaDelDestino)
+        rolando.llegarACasa()
+        rolando.encontrar(collarDivino)
+        rolando.llegarACasa()
+        assert.that( castilloDePiedra.inventario().contains(armaduraDeAceroValyrio) )
+        assert.that( castilloDePiedra.inventario().contains(espadaDelDestino) )
+        assert.that( castilloDePiedra.inventario().contains(collarDivino) )
+        rolando.poderBase(5)
+        rolando.encontrar(libroDeHechizos)
+        assert.that( rolando.mochila().contains(libroDeHechizos) )
+        assert.equals( [bendición, invisibilidad, invocación], libroDeHechizos.hechizos() )
+
+        // antes de la primera batalla
+        // assert.equals( 4 , rolando.mochila().get(0).get(0).poderQueAportaPara(rolando) )
+        assert.equals( 4 , libroDeHechizos.poderQueAportaPara(rolando) )
+        
+        //primera batalla
+        rolando.pelearBatalla()
+        assert.equals( 6 , libroDeHechizos.poderQueAportaPara(rolando) )
+
+        //segunda batalla
+        rolando.pelearBatalla()
+        assert.equals( 7 , libroDeHechizos.poderQueAportaPara(rolando) )
+
+        // tercera batalla
+        rolando.pelearBatalla()
+        assert.equals( 0 , libroDeHechizos.poderQueAportaPara(rolando) )
+    }
+
+    test "enemigos" {
+        rolando.capacidadMáximaMochila(3)
+        rolando.poderBase(5)
+        rolando.encontrar(espadaDelDestino)
+        assert.equals( 5 , espadaDelDestino.poderQueAportaPara(rolando) )
+        rolando.encontrar(armaduraDeAceroValyrio)
+        assert.equals( 6 , armaduraDeAceroValyrio.poderQueAportaPara(rolando) )
+        rolando.encontrar(collarDivino)
+        assert.equals( 6 , collarDivino.poderQueAportaPara(rolando) )
+        assert.equals( 19, rolando.poderDePelea() )
+        
+        assert.that( rolando.puedeVencer(archibaldo) )
+        assert.that( rolando.puedeVencer(astra) )
+
+        assert.that( rolando.puedeConquistarCasaDelEnemigo(palacioDeMármol) )
+        assert.that( rolando.puedeConquistarCasaDelEnemigo(torreDeMarfil) )
+
+         // puede vencer a Archibaldo y a Astra. Las moradas conquistables son el palacio de mármol y la torre de marfil.
+
+
+    }
 }
