@@ -145,7 +145,7 @@ El libro de hechizos contiene varios hechizos, que se utilizan en un determinado
 
 - Bendición: aporta 4 unidades de poder de pelea
 - Invisibilidad: el poder que aporta es el poder de pelea **base** del personaje
-- Invocación: aporta el valor del artefacto más poderoso para el héroe que posee en su morada (y el artefacto del castillo no sufre ningún efecto por la batalla)
+- Invocación: aporta el valor del artefacto más poderoso que el personaje posee en su morada (El artefacto invocado no sufre ningún efecto por la batalla). Si no hay artefacto en su morada el poder invocado es cero.
 
 Si el libro de hechizos no tiene ningún hechizo, entonces su aporte es nulo.
 

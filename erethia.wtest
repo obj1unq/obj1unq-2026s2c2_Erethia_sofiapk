@@ -125,17 +125,31 @@ describe "Erethia" {
         rolando.encontrar(armaduraDeAceroValyrio)
         assert.equals( 6 , armaduraDeAceroValyrio.poderQueAportaPara(rolando) )
         rolando.encontrar(collarDivino)
-        assert.equals( 6 , collarDivino.poderQueAportaPara(rolando) )
+        assert.equals( 3 , collarDivino.poderQueAportaPara(rolando) )
         assert.equals( 19, rolando.poderDePelea() )
-        
-        assert.that( rolando.puedeVencer(archibaldo) )
-        assert.that( rolando.puedeVencer(astra) )
+        assert.equals( [archibaldo, astra] , rolando.puedeVencerALosEnemigos( [caterina, archibaldo, astra] ) )
+        assert.equals( [palacioDeMármol, torreDeMarfil] , rolando.puedeConquistarCasaDeLosEnemigos( [caterina, archibaldo, astra] ) )
+    }
 
-        assert.that( rolando.puedeConquistarCasaDelEnemigo(palacioDeMármol) )
-        assert.that( rolando.puedeConquistarCasaDelEnemigo(torreDeMarfil) )
+    test "poderoso" {
+        rolando.capacidadMáximaMochila(3)
+        rolando.poderBase(5)
+        rolando.encontrar(espadaDelDestino)
+        rolando.encontrar(armaduraDeAceroValyrio)
+        rolando.encontrar(collarDivino)
+        assert.notThat( rolando.esPoderosoContra( [caterina, archibaldo, astra] ) )
+        rolando.poderBase(10)
+        assert.that( rolando.esPoderosoContra( [caterina, archibaldo, astra] ) )
+    }
 
-         // puede vencer a Archibaldo y a Astra. Las moradas conquistables son el palacio de mármol y la torre de marfil.
-
-
+    test "artefacto fatal" {
+        rolando.poderBase(15)
+        rolando.capacidadMáximaMochila(3)
+        rolando.encontrar(espadaDelDestino)
+        rolando.encontrar(armaduraDeAceroValyrio)
+        rolando.encontrar(collarDivino)
+        assert.that(rolando.poseeArtefactoFatalPara(astra))
+        assert.that(rolando.mochila().contains(espadaDelDestino))
+        assert.notThat(rolando.poseeArtefactoFatalPara(caterina))
     }
 }

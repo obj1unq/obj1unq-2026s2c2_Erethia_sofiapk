@@ -1,0 +1,18 @@
+Reflexionar sobre los conceptos
+
+* Elegir un polimorfismo e indicar: 
+   - ¿Qué nombre le pondrías al tipo de los objetos polimórficos?
+        tipo polimorfico: artefactoMágico
+   - ¿Qué mensajes componen ese tipo?
+        poderQueAportaPara(personaje) y serUsado()
+   - ¿Quiénes usan los mensajes polimórficos?
+        los usan rolando y castilloDePiedra
+   
+* Respecto de las colecciones definidas:
+    - ¿Qué tipo de elementos contienen?
+        las colecciones mochila (rolando) e inventario (castillo) contienen 
+        artefactosMágicos (espadaDelDestino, collarDivino, armaduraDeAceroValyrio, libroDeHechizos).
+        la coleccion hechizos contiene hechizos (bendición, invisibilidad e invocación)
+    - ¿Qué mensaje polimórfico (perteneciente al tipo mencionado) utilizaste dentro de un bloque?
+        poderQueAportaPara(personaje) en .sum(), .max() y .any()
+        en usarArtefactosDeMochila(), serUsado() en un .forEach()

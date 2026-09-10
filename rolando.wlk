@@ -6,9 +6,9 @@ object rolando {
     const historialArtefactos = []
     var property capacidadMáximaMochila = 2 // puede llevar hasta 2 artefactos a la vez
     const casa = castilloDePiedra
-
-    // parte 2.1
     var property poderBase = 5
+
+    //const enemigos = #{}
 
     method mochila() = mochila
     method historialArtefactos() = historialArtefactos
@@ -47,7 +47,7 @@ object rolando {
 
     // el artefacto que me de mas poder
     method poderInvocado() {
-        return casa.inventario().max( { artefacto => artefacto.poderQueAportaPara(self) })
+        return casa.artefactoMásPoderoso(self)
     }
 
     method pelearBatalla() {
@@ -59,14 +59,22 @@ object rolando {
         return mochila.forEach( {artefacto => artefacto.serUsado()} )
     }
 
-    method puedeVencer(enemigo) {
-        return enemigo.poderDePelea() < self.poderDePelea()
+    method puedeVencerALosEnemigos(enemigos) {
+        return enemigos.filter( {enemigo => enemigo.poderDePelea() < self.poderDePelea()} )
     }
 
     //A su vez, las moradas que Rolando podría conquistar son las moradas de los enemigos a los cuales puede vencer.
-    method puedeConquistarCasaDelEnemigo(enemigo) {
-        // saber a quienes puedo vencer
-        // a cada enemigo pedirle su morada
+    method puedeConquistarCasaDeLosEnemigos(enemigos) {
+        // saber a quienes puedo vencer y a cada enemigo pedirle su morada
+        return self.puedeVencerALosEnemigos(enemigos).map( {enemigo => enemigo.casa()} )
+    }
+
+    method esPoderosoContra(enemigos) {
+        return enemigos.all( { enemigo => enemigo.poderDePelea() < self.poderDePelea()} )
+    }
+
+    method poseeArtefactoFatalPara(enemigo) {
+        return mochila.any( { artefacto => artefacto.poderQueAportaPara(self) > enemigo.poderDePelea() } )
     }
 }
 
@@ -80,4 +88,8 @@ object castilloDePiedra {
     }
     
     method inventarioVacío() = inventario.isEmpty()
+
+    method artefactoMásPoderoso(personaje) {
+        return inventario.max( { artefacto => artefacto.poderQueAportaPara(personaje) })
+    }
 }
