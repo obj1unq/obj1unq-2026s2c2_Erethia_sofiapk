@@ -1,5 +1,6 @@
 import artefactosMagicos.*
 import enemigos.*
+import erethia.*
 
 object rolando {
     const mochila = []
@@ -7,8 +8,6 @@ object rolando {
     var property capacidadMáximaMochila = 2 // puede llevar hasta 2 artefactos a la vez
     const casa = castilloDePiedra
     var property poderBase = 5
-
-    //const enemigos = #{}
 
     method mochila() = mochila
     method historialArtefactos() = historialArtefactos
@@ -36,7 +35,6 @@ object rolando {
     // Saber si Rolando posee un artefacto en particular
     method posee(artefacto) = self.posesiones().contains(artefacto)
 
-    // parte 2.1
     method poderDePelea() {
         return poderBase + self.poderTotalArtefactos()
     }
@@ -57,20 +55,6 @@ object rolando {
 
     method usarArtefactosDeMochila() {
         return mochila.forEach( {artefacto => artefacto.serUsado()} )
-    }
-
-    method puedeVencerALosEnemigos(enemigos) {
-        return enemigos.filter( {enemigo => enemigo.poderDePelea() < self.poderDePelea()} )
-    }
-
-    //A su vez, las moradas que Rolando podría conquistar son las moradas de los enemigos a los cuales puede vencer.
-    method puedeConquistarCasaDeLosEnemigos(enemigos) {
-        // saber a quienes puedo vencer y a cada enemigo pedirle su morada
-        return self.puedeVencerALosEnemigos(enemigos).map( {enemigo => enemigo.casa()} )
-    }
-
-    method esPoderosoContra(enemigos) {
-        return enemigos.all( { enemigo => enemigo.poderDePelea() < self.poderDePelea()} )
     }
 
     method poseeArtefactoFatalPara(enemigo) {

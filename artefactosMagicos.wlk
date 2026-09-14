@@ -45,7 +45,7 @@ object armaduraDeAceroValyrio {
 }
 
 object libroDeHechizos {
-    const hechizos = [bendición, invisibilidad, invocación] // bendicion, invisibilidad invocación o vacia
+    const hechizos = [bendición, invisibilidad, invocación]
 
     method hechizos() = hechizos
 

@@ -116,40 +116,37 @@ describe "Erethia" {
         rolando.pelearBatalla()
         assert.equals( 0 , libroDeHechizos.poderQueAportaPara(rolando) )
     }
+}
+
+describe "Enemigos" {
+    method initialize() {
+        rolando.capacidadMáximaMochila(3)
+        rolando.encontrar(espadaDelDestino)
+        rolando.encontrar(armaduraDeAceroValyrio)
+        rolando.encontrar(collarDivino)
+        assert.equals( 5 , espadaDelDestino.poderQueAportaPara(rolando) )
+        assert.equals( 6 , armaduraDeAceroValyrio.poderQueAportaPara(rolando) )
+        assert.equals( 3 , collarDivino.poderQueAportaPara(rolando) )
+        rolando.poderBase(5)
+    }
 
     test "enemigos" {
-        rolando.capacidadMáximaMochila(3)
-        rolando.poderBase(5)
-        rolando.encontrar(espadaDelDestino)
-        assert.equals( 5 , espadaDelDestino.poderQueAportaPara(rolando) )
-        rolando.encontrar(armaduraDeAceroValyrio)
-        assert.equals( 6 , armaduraDeAceroValyrio.poderQueAportaPara(rolando) )
-        rolando.encontrar(collarDivino)
-        assert.equals( 3 , collarDivino.poderQueAportaPara(rolando) )
         assert.equals( 19, rolando.poderDePelea() )
-        assert.equals( [archibaldo, astra] , rolando.puedeVencerALosEnemigos( [caterina, archibaldo, astra] ) )
-        assert.equals( [palacioDeMármol, torreDeMarfil] , rolando.puedeConquistarCasaDeLosEnemigos( [caterina, archibaldo, astra] ) )
+        assert.equals( [archibaldo, astra] , erethia.enemigosVenciblesPor(rolando) )
+        assert.equals( [palacioDeMármol, torreDeMarfil] , erethia.casaDeEnemigosConquistablesPor(rolando) )
     }
 
     test "poderoso" {
-        rolando.capacidadMáximaMochila(3)
-        rolando.poderBase(5)
-        rolando.encontrar(espadaDelDestino)
-        rolando.encontrar(armaduraDeAceroValyrio)
-        rolando.encontrar(collarDivino)
-        assert.notThat( rolando.esPoderosoContra( [caterina, archibaldo, astra] ) )
+        assert.notThat( erethia.esElMásPoderoso(rolando) )
         rolando.poderBase(10)
-        assert.that( rolando.esPoderosoContra( [caterina, archibaldo, astra] ) )
+        assert.equals( 29, rolando.poderDePelea() )
+        assert.that( erethia.esElMásPoderoso(rolando) )
     }
 
     test "artefacto fatal" {
         rolando.poderBase(15)
-        rolando.capacidadMáximaMochila(3)
-        rolando.encontrar(espadaDelDestino)
-        rolando.encontrar(armaduraDeAceroValyrio)
-        rolando.encontrar(collarDivino)
-        assert.that(rolando.poseeArtefactoFatalPara(astra))
-        assert.that(rolando.mochila().contains(espadaDelDestino))
-        assert.notThat(rolando.poseeArtefactoFatalPara(caterina))
+        assert.that( rolando.poseeArtefactoFatalPara(astra) )
+        assert.that( rolando.mochila().contains(espadaDelDestino) )
+        assert.notThat( rolando.poseeArtefactoFatalPara(caterina) )
     }
 }
